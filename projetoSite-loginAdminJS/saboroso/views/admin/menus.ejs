@@ -1,0 +1,283 @@
+<%- include("inc/header.ejs")-%> <!--include dados organizando igual para todos admin...-->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          Menu
+        </h1>
+        <ol class="breadcrumb">
+          <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+          <li class="active">Menu</li>
+        </ol>
+      </section>
+
+      <!-- Main content -->
+      <section class="content container-fluid">
+
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Lista</h3>
+            <a href="#" class="btn btn-xs pull-right btn-success" data-toggle="modal" data-target="#modal-create"><i
+                class="fa fa-plus"></i> Novo</a>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body no-padding">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Foto</th>
+                  <th>Título</th>
+                  <th>Descrição</th>
+                  <th>Preço</th>
+                  <th style="min-width: 134px;">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% data.forEach(function(row){ %><!--forEach para fazer as modificaçoes de cada linha abaixo...-->
+                <tr data-row="<%= JSON.stringify(row); %>"><!--converte valores em javascript para uma String JSON. Esses valores podem ser substituidos especificando a função ...-->
+                  <td><%= row.id %></td><!--id do menu..-->
+                  <td><img src="/<%= row.photo %>" alt="" style="height: 18px;"></td><!--img esta na pasta images na area public,,para "pegar" a imagem da área pública é preciso colocar "/" no início.-->
+                  <td><%= row.title %></td>
+                  <td><%= row.description %></td>
+                  <td>R$<%= row.price %></td><!--R$ string que não varia constante html.. estatico-->
+                  <td><button type="button" class="btn btn-xs btn-info btn-update"><i
+                        class="fa fa-pencil"></i> Editar</button>&nbsp;<button type="button" class="btn btn-xs btn-danger btn-delete"><i
+                        class="fa fa-trash"></i> Excluir</button></td><!--botão editar e excluir do menu de cardapios admin-->
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div class="modal fade" id="modal-create"><!--cria um novo produto no proprio site..-->
+      <div class="modal-dialog">
+        <div class="modal-content" style="border-top: 3px solid #00a65a;">
+          <form method="post" action="/admin/menus"><!--action do post caminho url..-->
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Novo Menu</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="inputTitleCreate">Título</label>
+                <input type="text" class="form-control" id="inputTitleCreate" name="title">
+              </div>
+              <div class="form-group">
+                <label for="inputDescriptionCreate">Descrição</label>
+                <textarea class="form-control" id="inputDescriptionCreate" name="description"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="inputPriceCreate">Preço</label>
+                <input type="number" class="form-control" id="inputPriceCreate" name="price">
+              </div>
+              <div class="form-group">
+                <label for="inputPhotoCreate">Foto</label>
+                <img style="max-width: 128px; max-height: 128px; display: block;" src="dist/img/boxed-bg.jpg">
+                <input type="file" class="form-control" id="inputPhotoCreate" name="photo">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal-update"><!--fixa esse produto no site.. e mysql..-->
+      <div class="modal-dialog">
+        <div class="modal-content" style="border-top: 3px solid #00c0ef;">
+          <form method="post" action="/admin/menus"><!--action do post caminho url..-->
+            <input type="hidden" name="id"><!--diferença do update editar para create criar é o id,, pois create vai criar um ad novo obviamente-->
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Editar Menu</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="inputTitleUpdate">Título</label>
+                <input type="text" class="form-control" id="inputTitleUpdate" name="title">
+              </div>
+              <div class="form-group">
+                <label for="inputDescriptionUpdate">Descrição</label>
+                <textarea class="form-control" id="inputDescriptionUpdate" name="description"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="inputPriceUpdate">Preço</label>
+                <input type="number" class="form-control" id="inputPriceUpdate" name="price">
+              </div>
+              <div class="form-group">
+                <label for="inputPhotoUpdate">Foto</label>
+                <img style="max-width: 128px; max-height: 128px; display: block;" src="dist/img/boxed-bg.jpg">
+                <input type="file" class="form-control" id="inputPhotoUpdate" name="photo">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-info">Salvar</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+<%- include("inc/footer")-%>
+
+<!--plugin para aparecer a imagem da comida ao clicar em editar no site admin abaixo...:-->
+ <script src="/js/hcode-filereader.js"></script><!-- local do arquivo encaminhado sobre linha 151..-->
+<script src="/js/hcode-formsave.js"></script><!--arq encaminhado.. Envia os dados do formulário via AJAX para o url-->
+<script src="/js/hcode-grid.js"></script><!--para o hcode-grid existir no menus conexão-->
+
+<script>
+ new HcodeFilereader('#modal-create [type=file]', '#modal-create img');//mostrar a imagem de acordo q seleciona o input,,input alvo q sera alterado create botão de criar novo produto no menu no admin
+ new HcodeFilereader('#modal-update [type=file]', '#modal-update img');//aqui é ao clicar em editar...
+
+ new HcodeGrid({//colocar os caminhos arquivo Hcode-grid chamando aqui..
+  deleteUrl: '/admin/menus/${data.id}',//deletar a rota url
+  deleteMsg: 'Deseja realmente excluir o menu de ${data.title}?',//mensagem aviso se confirma a exclusão deste produto tem certeza?
+  onUpdateLoad:(form, name, data) => {//quando o load for carregado..recebe form upgrade formulario, name nome do campo,data=dados
+ 
+    let input = form.querySelector(`[name=${name}]`);//formulario pegar name value dele tr e colocar input.. botão editar
+    switch (name) {//file input tratado desta maneira..
+case 'photo'://se for foto file...
+ form.querySelector("img").src = '/' + data[name];//no menu cardapio pegar img e colocar no case da img... ao clicar no editar e em escolher outra imagem, troca de imagens..
+break;
+ default://se não..
+ if(input) input.value = data[name];//verificação se achou algo input..
+}
+  }
+  });
+ // new HcodeGrid({
+//     deleteUrl: '/admin/menus/${data.id}',
+//     deleteMsg: 'Deseja realmente excluir o menu ${data.title}?',
+//     onUpdateLoad: (form, name, data) => {
+//         let input = form.querySelector(`[name=${name}]`);
+//         switch(name) {
+//             case 'photo':
+//                 form.querySelector('img').src = '/' + data[name];
+//                 break;
+            
+//             default:
+//                 if (input) input.value = data[name];
+//         }
+//     }
+// });
+
+
+/*botão criar novo produto no admin abaixo:*/
+//let formCreate = document.querySelector("#modal-create form");//pega formulario de criar produto novo,,Retorna o primeiro elemento descendente do elemento em que a função foi invocada e que corresponde aos seletores especificado 'as vezes um css'.
+
+//formCreate.save().then(json=>{//retorna uma promessa esperando json..
+
+//  window.location.reload();//para gerar a atualização do menu quando.. forma mais resumida....
+
+//}).catch(err=>{
+ // console.log(err);
+//});
+
+//formCreate.addEventListener('submit', e => {//criando evento de formulario
+
+ // e.preventDefault();//cancelar envio padrão
+
+//  let formCreateData = new FormData(formCreate);//cria formData,,objeto nativo para gerenciar dados de formulario
+
+//  fetch("/admin/menus", {//passar via ajax para servidor os dados com fetch..
+ //   method: 'POST', //metodo usado
+ //   body: formCreateData //dados passados body
+//})
+//. then(response => response.json())//fetch recebe uma promesa solicitação http..
+ // .then(json =>{//outra promise com json de resposta
+
+ //   console.log("JSON", json);//console para ver se ta gerando o json msm
+
+ //window.location.reload();//para gerar a atualização do menu quando quiser acrescentar cardapios..
+//  });
+
+//});
+//console.log(formCreateData);//consegue pegar tag formulario em methodo post como objeto..
+
+
+/*botão editar abaixo em js do menu no admin do site*/
+//let formUpdate = document.querySelector("#modal-update form");//pegar o formulario do menu na class.. quando edita produto
+//formUpdate.save().then(json=>{//retorna uma promessa esperando json..
+
+//window.location.reload();//para gerar a atualização do menu quando.. forma mais resumida....
+
+//}).catch(err=>{
+//console.log(err);
+//});
+
+ //[...document.querySelectorAll('.btn-delete')].forEach(btn=>{// botão para deletar
+  //btn.addEventListener ('click', e =>{
+
+   //  let tr = e.path.find(el => {//passa elemento procurando com path..
+
+ //return(el.tagName.toUpperCase() === 'TR');//retornar um elemento toUpperCase=string  maiúscula == TR linha 40
+ //});
+
+ //let data = JSON.parse(tr.dataset.row); //pegar esses dados como objeto tr.. obj dentro dataset pegando apenas string..
+ //console.log(data.id); // mostra o id ao clicar em deletar no produto...
+ //if(confirm(`Deseja realmente excluir o menu ${data.title}?`)){//se confirma a exclusão deste produto tem certeza?
+
+ //fetch(`/admin/menus/${data.id}`, {//Fetch fornece uma interface JavaScript para acessar e manipular partes do pipeline HTTP, tais como os pedidos e respostas.caminho url e id produto
+  // method:'DELETE',//metodo para deletar..
+ //})
+ //.then(response => response.json())//fazer um response em json..
+ //.then(json => {//outra promessa..
+  // window.location.reload();//para gerar a atualização automatica do menu quando
+// });
+//}
+ //});
+
+ //});
+
+
+//[...document.querySelectorAll('.btn-update')].forEach(btn => {//botão de editar de admin,coloca em array para fazer forEach
+
+ //btn.addEventListener ('click', e =>{ //configurar o click do botão evento
+
+  // let tr = e.path.find(el => {//passa elemento procurando com path..
+
+    // return(el.tagName.toUpperCase() === 'TR');//retornar um elemento toUpperCase=string  maiúscula == TR linha 40
+    //});
+
+   //let data = JSON.parse(tr.dataset.row); //pegar esses dados como objeto tr.. obj dentro dataset pegando apenas string..
+    //console.log(data); // ver se o botão obteve respoosta.. de tr data row do html do menu linha 40 apenas teste
+ 
+    //for (let name in data) {//usar for para preencher informaçoes menu edição cardapio com switch
+
+      //switch (name) {//file input tratado desta maneira..
+
+        //case 'photo'://se for foto file...
+        //  formUpdate.querySelector("img").src = '/' + data[name];// pegar img e colocar no case da img... ao clicar no editar e em escolher outra imagem, troca de imagens..
+        //break;
+        //default://se não..
+        //let input = formUpdate.querySelector(`[name=${name}]`);//formulario pegar name value dele tr e colocar input.. botão editar
+        //if(input) input.value = data[name];//verificação se achou algo input..
+      //}
+//}
+
+//$('#modal-update').modal('show');//selecionar modal onde cria produto menu
+  //});
+//});
+
+</script>

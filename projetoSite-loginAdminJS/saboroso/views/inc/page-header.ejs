@@ -1,0 +1,18 @@
+<!DOCTYPE HTML><!--Embedded JavaScript templating (EJS) e é uma linguagem de modelagem simples que permite gerar marcação HTML com JavaScript simples.-->
+<html><!--pegou index.html e colocou em index.ejs na pasta views, tudo em index.html é igual index.ejs-->
+
+<%- include("head") -%><!--include: chamar do arquivo cabeçario todos os outros arquivos,,q esta na pasta dentro de views e pasta inc e head.ejs arquivo-->
+<!--no site clica ctrl + u: mostra o codigo da pagina podendo ver o head...-->
+<body><!---->
+
+	<div class="gtco-loader"></div><!--mostra carregando a pagina-->
+
+	<div id="page"><!--tag da pagina msm-->
+
+    <%- include('header-menu') -%> <!--header-menu.ejs onde fica o menu das navegações no topo do site, coneção com include-->
+    
+    <% if (typeof isHome === 'boolean' && isHome) { %><!--typeof definir tipo para não dar undefined,,,se isHome for boolean e isHome for true ,,para header index apenas para index e nao ficar nas outras paginas-->
+        <%- include('header-index') -%><!--header-index.ejs conect pelo isHome pela rota pasta routes do arquivo index.js para ir index.ejs-->
+    <% } else { %><!--se não for no /index isHome-->
+        <%- include('header') -%><!--nao possue no index mas tem em todos os outros-->
+    <% } %>

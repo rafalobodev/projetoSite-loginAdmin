@@ -1,0 +1,13 @@
+<!--fazendo um include para automatizar organização codigo-->
+<% if (typeof error === "string") {%><!--se errar string texto.. se tiver erro na tela-->
+    <div class="alert alert-danger"><!--variavel de error caso erre o cadastro ou falte digitar gera alerta aviso letras vermelhas danger de erro-->
+    <%= error %><!--sai error...-->
+</div>
+<% } %><!--fechamento codigo de erro if-->
+
+<% if (typeof sucess === "string") {%><!--se der sucess string texto... aviso q cadastro foi um sucesso-->
+    <div class="alert alert-success"><!--variavel de sucess em verde acima do cadastro-->
+    <%= sucess %><!--sai sucess...-->
+</div>
+<% } %><!--fechamento codigo de erro if-->
+

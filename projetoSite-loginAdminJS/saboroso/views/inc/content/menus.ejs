@@ -1,0 +1,34 @@
+<div class="gtco-section"><!--parte de menu-->
+    <div class="gtco-container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                <h2 class="cursive-font primary-color">Pratos Populares</h2><!--tres opçoes do menu abaixo-->
+                <p>Mussum Ipsum, cacilds vidis litro abertis. Diuretics paradis num copo é motivis de denguis. Quem num gosta di mé, boa
+                    gentis num é.</p>
+            </div>
+        </div>
+        <div class="row">
+<!--forEach faz uma função q tem cada item ou linha=row do mysql-->		
+            <% menus.forEach(function(row){ %><!--variavel menus de tb_menus de index.js linha 9, faz forEach()= permite executar uma função para cada item de um array.-->
+            <div class="col-lg-4 col-md-4 col-sm-6"><!--de estatico transformar em dinamico..-->
+                <a href="<%= row.photo %>" class="fh5co-card-item image-popup"><!--renderizar um valor clique link img bife-->
+                    <figure>
+                        <div class="overlay">
+                            <i class="ti-plus"></i>
+                        </div>
+                        <img src="<%= row.photo %>" alt="Image" class="img-responsive"><!--imagem bife-->
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2><%= row.title %></h2><!--titulos do bife e outros alimentos mysql-->
+                        <p><%= row.description %></p><!--descrição de cada alimento-->
+                        <p>
+                            <span class="price cursive-font"><%= row.price %></span><!--valor preços dos alimentos tudo modificavel em mysql-->
+                        </p>
+                    </div>
+                </a>
+            </div>
+            <% }); %><!--fechando forEach acima-->
+
+        </div>
+    </div>
+</div><!--fechamento da tag container e section e rows -->

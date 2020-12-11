@@ -1,0 +1,105 @@
+##############criando restaurante saboroso################
+######instalar express no terminal############
+* npm install express-generator -g   : instala o express em nivel global
+*express -help   : para ver todos os comando q ele fornece, ver versão
+*express --ejs saboroso  : Usamos ele para conseguirmos enviar dados para nossas páginas ejs pelo express criando projeto,,colocar ejs no projeto com nome escolhido de saboroso dentro da pasta saboroso onde sera projeto
+*ls: ver os arquivos criados com express anteriormente
+*cd saboroso: ir na pastaq possue ejs para fazer a instalação abaixo...
+*npm install   :vera todas as dependencias de express ejs e fara o download de cada uma delas,, podendo ja subir o servidor express
+*set DEBUG=saboroso:* & npm start   :na pasta saboroso onde tem arquivos.. criar uma variavel de ambiente, e npm start para subir serviço e disponibilizar o porta 3000 padrão
+*npm start: só foi preciso colocar npm start e não set debug mas ta rodando na porta 3000
+
+########bower: para automatizar o site em tempo real restaurante no frontend, js funcionando certinho entre outros...########
+*npm install bower -g   :instalar o bower de modo globo
+*bower install   : no terminal ir na pasta saboroso\public\admin... para instalar bower no projeto
+
+#####mysql:banco de dados##########
+*instalar mysql no site oficial pesquisa no google mysql installer
+*no mysql workbench cria uma schema e coloca nome de saboroso...
+*copia e cola dados do mysql do site estão dentro de pasta public\db dentro do schema saboroso
+*CTRL + shift + enter   : no mysql workbench executa da primeira linha até o final
+*no workbench vai em users and privileges para colocar em localhost e não dar problema em direcionamento colocar em dba e tbm em users coloca limit to host matching 127.0.0.1 e aply configuraçoes
+*limit to host matching 127.0.0.1 : é uma validação da origem de onde o usuario esta tentando se conectar no mysql
+###########conectar mysql com nodejs###########
+*no site npmjs.com pesquisar sobre mysql e procurar por mysqlcomnodejs tem varias opçoes... pegar a Node Mysql 2
+*npm install mysql2 --save  : no terminal na pasta saboroso para instalar mysql2 como uma dependencia
+*agr falta a conexão tem instruçoes no site npmjs.com sobre mysql2...no caso vai criar uma pasta inc e arquivo db.js...  
+*conecta com user.js da pasta routes de url http://localhost:3000/users e instala nodemon em package.json ou vai em package.json e muda start: node para nodemon...
+
+##########nodemon########################
+*nodemon: automatizar para tirar e colocar serviço quando quiser,,*nodemon: ap para continuar executando constantemente um programa seja qual for as mudanças durante o code ele é reestartado,,fica monitando os arquivos qualquer mudança q tiver reinicia a aplicação e ja ler atualização mais nova dos arquivos
+*npm i -g nodemon: instalar nodemon de forma global e rodar em qualquer projeto q quiser fazer...
+*npm i --save-dev nodemon : coloca nodemon na pasta q quer baixar nodemon na dependencia de desenvolvimento ele vai aparecer no packagejson
+
+
+
+#############mudando o preço no mysql do produto#########################
+*vai no sql em saboroso>tables>tb_menus> com botão direito escolhe a opção 'select rows - limit 1000' > abrira uma aba com alguns dados do menu para fazer o select e mudar preços como quiser...
+*SELECT * FROM saboroso.tb_menus;   : caso queira digitar no mysql e ver a tabela menus para editar como quiser
+###########ver os cadastros de pessoas no reserva de mesa###################
+*abre o mysql> clica em tb_reservations>colums> e mostra as opçoes da tabela
+*DESC tb_reservations;   : digita no mysql para mostrar os cadastros
+
+* ou  na opção tb_contatos > clica botão diereito > 'select rows - limit 1000' > motrara os contatos abrindo uma aba
+*SELECT * FROM saboroso.tb_contacts;   : digita para ver contatos
+
++++++++++++express-session:manipular dados elo entre o usuario e servidor sem interferir no programa rodando,ou seja,configuraçoes do login ++++++++++++++++++++++++++
+https://www.npmjs.com/package/express-session    : site com instruçoes sobre..
+* npm install express-session  : instalar express session no terminal
+* redis: armazenar dados sem prejudicar o servidor e pratico
+*npm install --save express-session  connect-redis: instalar session e connectar redis
+*instalar o redis no site do redis... https://github.com/microsoftarchive/redis  .. link repositorio github do redis
+* instalar redis 3.2.100 para garantir que funcione link no curso na porta padrão 6379
+*configuração do redis no codigos... instruçoes site https://www.npmjs.com/package/connect-redis
+*npm i connect-redis@3.3.3   : no terminal coloca na versão que funciona o redis
+
++++++++logar no admin restaurante+++++++++++++++
+*no mysql em tb_users>botão direito>'select rows - limit 1000'> aparece email e senha para entrar..
+*email: joao@hcode.com.br  senha: 123456
+
+++++++formidable:utilizamos o formidable como middeware para upload de imagens.+++++++++++++++++++
+*INFO:recuperar informaçoes dados via ajax e mandar para banco de dados usando formidable e tbm express
+*npm install formidable --save   : terminal.. instalando formidable, --save=para salvar como dependancia na pasta do projeto
+*npm i formidable@1.2.1   : instalar a versão q funciona no formidable
+*https://www.npmjs.com/package/formidable  .. codigo para formidable escolher versão.. formidable com express.js
+
++++++++++++++no console do site http://localhost:3000/admin/menus +++++++++++++++++++
+dir(document.querySelector("form"))  : digita no console para ver __proto__ :HTMLFormElement,,, para criar codigo em hcode-formsave 
+
++++++++++++moment.js++++++++++++
+*moment.js:utilizado para validar, manipular e fazer o parse de datas no JavaScript... sera usado nas datas de reservations
+*site moment.js : https://momentjs.com/    instruçoes de instalação e uso.
+*npm install moment --save   : terminal na pasta do projeto fazer instalação.. nas aulas usar versão @2. 22. 2
+
+++++++++++MYSQL: comandos++++++++++++++++++
+*SELECT SQL_CALC_FOUND_ROWS * FROM saboroso.tb_reservations ORDER BY name LIMIT 0, 10;    -- quer apenas ver 10 registro apartir do primeiro q é 0 OU 1 A 9,  na paginação reservas do admin limite inicial, ORDER BY NAME: deixando a lista de reservas em ordem alfabetica, SQL_CALC_FOUND_ROWS: para guardar a informação
+* SELECT FOUND_ROWS();    -- total de resultados da ultima consulta reserva total 500 
+
++++++++++++++++chartjs: para fazer um dashboard tipo avaliação do seu site graficos e talz alterando a data do reservations++++++++++++++++++
+*https://www.chartjs.org/ site da api clica em getStart e em installation
+*cd public\admin   : vai para a pasta public  e pasta admin no terminal
+*bower install chart.js --save     : 'bower install chart.js@2.7.2 --save'   : para a versão 2.7.2versão usada na aula
+
++++++++++++socket.io: trabalhar em tempo real entre clientes e servidores da Web para ser mais rapido e eficiente na internet++++++++++++++++++++
+*socket.io:biblioteca JavaScript para aplicativos da web em tempo real. Permite comunicação bidirecional em tempo real entre clientes e servidores da Web. Ele tem duas partes: uma biblioteca do lado do cliente que é executada no navegador e uma biblioteca do lado do servidor para o Node.js.
+*https://socket.io/get-started/chat/    : no site oficial em learn > Get Start
+*OBS: npm unistall express --save   : desinstalar express por não ser compativel e remover do package json com --save
+*npm install express@4.15.2     : instalar express q é compativel com o versão
+*npm install socket.io --save    : instalar socket.io e --save para instalar no package json tbm
+*   "scripts": {
+    "start": "nodemon app.js"     = "start": "nodemon ./bin/www" muda para app.js no arquivo package.json
+* npm start   : startar o projeto denovo
+*OBS:se fizer socket.emit:avisa apenas aos usuarios q acabou de se conectar e não todos,, io.emit:avisa a todos os usuarios q estão conectados no socket
+
+SELECT
+	(SELECT COUNT(*) FROM tb_contacts) AS nrcontacts,
+	(SELECT COUNT(*) FROM tb_menus) AS nrmenus,
+	(SELECT COUNT(*) FROM tb_reservations) AS nrreservations,
+	(SELECT COUNT(*) FROM tb_users) AS nrusers;     -- apenas conta o que tem cada uma das tabelas
+
+
+
+
+
+cd .1projetosCode\sitePrivadoRestaurante\saboroso\saboroso
+
