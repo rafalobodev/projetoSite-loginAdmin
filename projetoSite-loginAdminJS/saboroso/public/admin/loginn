@@ -20,7 +20,7 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="#"><b>Admin</b>Hcode</a>
+      <a href="#"><strong>Admin</strong>Hcode</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
